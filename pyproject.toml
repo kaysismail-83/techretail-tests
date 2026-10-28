@@ -1,0 +1,42 @@
+[project]
+name = "techretail-tests"
+version = "2026.10.0"
+description = "Mitt testrepo för TechRetail AB – kursen Testautomation och AI inom IT-test"
+requires-python = ">=3.12"
+dependencies = [
+    "pytest==9.1.1",
+    "pytest-playwright==0.10.0",
+    "playwright==1.64.0",
+    "httpx==0.28.1",
+    "Faker==40.43.0",
+    "pytest-repeat==0.9.4",
+    # Lektion 8: officiella MCP-SDK:n, version 2 (MCPServer).
+    "mcp>=2.3,<3",
+    # Systemet som testas (TechRetail-butiken). Levereras som en fil i mappen sut/.
+    "techretail-shop==2026.10.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+techretail-shop = { path = "sut/techretail_shop-2026.10.0-py3-none-any.whl" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra --strict-markers"
+markers = [
+    "smoke: snabba tester som körs vid varje ändring",
+    "regression: bredare tester som körs före release",
+    "ai_genererad: testet är skrivet av en AI-assistent och granskat med GRANSKA-kortet (lektion 5)",
+    "milestone: alla milstolpekontroller (pytest -m milestone)",
+    "milestone_l1: milstolpe lektion 1, komponenttester",
+    "milestone_l2: milstolpe lektion 2 – GUI-tester och Page Objects",
+    "milestone_l3: milstolpe lektion 3 – CI",
+    "milestone_l4: milstolpe lektion 4 – API-tester",
+    "milestone_l5: milstolpe lektion 5 – AI och anonymisering",
+    "milestone_l6: milstolpe lektion 6 – prestanda och säkerhet",
+    "milestone_l7: milstolpe lektion 7 – felsökning och instabila tester",
+    "milestone_l8: milstolpe lektion 8 – MCP",
+]

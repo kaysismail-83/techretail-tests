@@ -1,0 +1,50 @@
+# CI för ditt testrepo (GitHub Actions). Körs vid varje push och pull request.
+# Lektion 3: du gör klart de två TODO-stegen så att även GUI-testerna körs i CI.
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tester:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Installera uv och Python
+        uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: "0.13.4"
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Installera paketen
+        run: uv sync --locked
+
+      - name: Komponenttester
+        run: uv run pytest tests/unit -v
+
+      # Fördjupning (lektion 3, valbart): mät uppskattad energi med Eco CI.
+      # Ta bort # framför de tre stegen nedan. send-data: false gör att inga mätdata skickas till tredje part.
+      # - uses: green-coding-solutions/eco-ci-energy-estimation@v5
+      #   with: { task: start-measurement, send-data: false }
+      # (… dina teststeg …)
+      # - uses: green-coding-solutions/eco-ci-energy-estimation@v5
+      #   with: { task: get-measurement, label: "Tester", send-data: false }
+      # - uses: green-coding-solutions/eco-ci-energy-estimation@v5
+      #   with: { task: display-results, send-data: false }
+
+      # TODO 1 (lektion 3): Kör GUI-testerna i CI.
+      #   Du behöver tre steg: installera Chromium, starta butiken och köra testerna.
+      #     uv run playwright install --with-deps chromium
+      #     uv run python scripts/shop.py start
+      #     uv run pytest tests/gui -v --tracing retain-on-failure
+
+      # TODO 2 (lektion 3): Spara testresultaten så att du kan felsöka en röd körning.
+      #   Använd actions/upload-artifact@v7 med path: test-results/ och if: always()

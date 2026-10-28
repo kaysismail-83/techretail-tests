@@ -1,0 +1,31 @@
+{
+  "name": "TechRetail testautomation",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+  "containerEnv": {
+    "UV_LINK_MODE": "copy",
+    "TECHRETAIL_URL": "http://127.0.0.1:8000",
+    "PYTHONPATH": "${containerWorkspaceFolder}/src:${containerWorkspaceFolder}"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "TechRetail-butiken", "onAutoForward": "notify" }
+  },
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "customizations": {
+    "codespaces": { "openFiles": ["README.md"] },
+    "vscode": {
+      "extensions": ["ms-python.python"],
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "files.exclude": { "**/__pycache__": true, ".pytest_cache": true }
+      }
+    }
+  }
+}
