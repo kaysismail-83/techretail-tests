@@ -12,6 +12,9 @@ export PATH="$HOME/.local/bin:$PATH"
 echo "==> Installerar Python-paketen (låsta versioner i uv.lock)"
 uv sync --locked
 
+echo "==> Tar bort Yarns apt-källa (basavbildningens nyckel har gått ut och stoppar apt)"
+sudo rm -f /etc/apt/sources.list.d/yarn.list
+
 echo "==> Installerar Chromium för Playwright"
 uv run playwright install --with-deps chromium
 
