@@ -13,14 +13,14 @@ dependencies = [
     # Lektion 8: officiella MCP-SDK:n, version 2 (MCPServer).
     "mcp>=2.3,<3",
     # Systemet som testas (TechRetail-butiken). Levereras som en fil i mappen sut/.
-    "techretail-shop==2026.10.0",
+    "techretail-shop==2026.11.0",
 ]
 
 [tool.uv]
 package = false
 
 [tool.uv.sources]
-techretail-shop = { path = "sut/techretail_shop-2026.10.0-py3-none-any.whl" }
+techretail-shop = { path = "sut/techretail_shop-2026.11.0-py3-none-any.whl" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

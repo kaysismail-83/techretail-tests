@@ -1056,8 +1056,8 @@ wheels = [
 
 [[package]]
 name = "techretail-shop"
-version = "2026.10.0"
-source = { path = "sut/techretail_shop-2026.10.0-py3-none-any.whl" }
+version = "2026.11.0"
+source = { path = "sut/techretail_shop-2026.11.0-py3-none-any.whl" }
 dependencies = [
     { name = "fastapi" },
     { name = "itsdangerous" },
@@ -1066,7 +1066,7 @@ dependencies = [
     { name = "uvicorn" },
 ]
 wheels = [
-    { filename = "techretail_shop-2026.10.0-py3-none-any.whl", hash = "sha256:26aaec28fb28d421b8fe2ff1ff7e5a22910142f711e7fb3745ae2f719b8407d7" },
+    { filename = "techretail_shop-2026.11.0-py3-none-any.whl", hash = "sha256:2067663f8e44c43d33049f7aa9bb88978f3e30691db8c47070a4e1cdebcb90b8" },
 ]
 
 [package.metadata]
@@ -1102,7 +1102,7 @@ requires-dist = [
     { name = "pytest", specifier = "==9.1.1" },
     { name = "pytest-playwright", specifier = "==0.10.0" },
     { name = "pytest-repeat", specifier = "==0.9.4" },
-    { name = "techretail-shop", path = "sut/techretail_shop-2026.10.0-py3-none-any.whl" },
+    { name = "techretail-shop", path = "sut/techretail_shop-2026.11.0-py3-none-any.whl" },
 ]
 
 [[package]]
