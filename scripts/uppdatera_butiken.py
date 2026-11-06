@@ -1,9 +1,8 @@
 """Uppdaterar butiken i ditt repo till version 2026.11.0 och rättar post-create.sh.
 
-    curl -fsSL -o scripts/uppdatera_butiken.py https://raw.githubusercontent.com/kaysismail-83/techretail-tests/main/scripts/uppdatera_butiken.py
-    uv run python scripts/uppdatera_butiken.py
+    curl -fsSL https://raw.githubusercontent.com/kaysismail-83/techretail-tests/main/scripts/fixa_butiken.sh | bash
 
-Reserv utan internet mot GitHub: make startpaket ZIP=patch-butiken.zip och sedan samma uv run.
+Kommandot hämtar och kör det här skriptet.
 
 Vad skriptet gör:
 0. Hämtar den nya butiken från kursens mall på GitHub, om den inte redan finns i sut/.
@@ -94,7 +93,7 @@ def update_pyproject() -> bool:
     if NEW_WHEEL in text and "techretail-shop==2026.11.0" in text:
         return False
     if OLD_WHEEL not in text or "techretail-shop==2026.10.0" not in text:
-        raise SystemExit("pyproject.toml ser inte ut som kursens fil. Inget är ändrat. Skicka en bild av felet till kursledaren.")
+        raise SystemExit("pyproject.toml ser inte ut som kursens fil. Inget är ändrat. Kopiera allt i terminalen till tråden under inlägget om butiken i Allmänt.")
     text = text.replace("techretail-shop==2026.10.0", "techretail-shop==2026.11.0").replace(OLD_WHEEL, NEW_WHEEL)
     write(path, text)
     return True
@@ -158,8 +157,8 @@ def fetch_wheel(target: Path) -> bool:
 def main() -> int:
     wheel = ROOT / "sut" / NEW_WHEEL
     if not wheel.exists() and not fetch_wheel(wheel):
-        print("Använd reserven: ladda ner patch-butiken.zip från mappen Patch under Filer i Allmänt i Teams,")
-        print("lägg den bredvid Makefile och kör  make startpaket ZIP=patch-butiken.zip  . Kör sedan det här skriptet igen.")
+        print("Vänta en minut och kör kommandot igen. Hjälper det inte, kopiera allt i terminalen")
+        print("och klistra in det i tråden under inlägget om butiken i kanalen Allmänt i Teams.")
         return 2
 
     changed = [name for name, done in [("pyproject.toml", update_pyproject()), ("uv.lock", update_lock()),
@@ -178,7 +177,7 @@ def main() -> int:
 
     print("Kör uv sync ...")
     if subprocess.run(["uv", "sync"], cwd=ROOT).returncode != 0:
-        print("uv sync misslyckades. Kör  uv sync  igen och läs felet. Skicka en bild av felet till kursledaren om det står kvar.")
+        print("uv sync misslyckades. Kör kommandot igen. Står felet kvar, kopiera allt i terminalen till tråden under inlägget om butiken i Allmänt.")
         return 1
 
     yarn_list = Path("/etc/apt/sources.list.d/yarn.list")
